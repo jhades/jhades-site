@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script-->		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>jHades - Your way out of Jar Hell!</title>
+		<!-- build:css jhades-site.min.css -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link href="css/prettify.css" type="text/css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/jhades.css">
+		<link rel="stylesheet" type="text/css" href="css/docs.css">
+		<link rel="stylesheet" type="text/css" href="css/DT_bootstrap.css">	
+		<!-- endbuild -->
+		
+		<script>
+			if (document.URL.search("localhost") == -1) {
+
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-42787305-1');
+                ga('send', 'pageview');
+
+			}
+		</script>
+
+		<script type="text/javascript" src='https://platform.twitter.com/widgets.js'></script>
+
+	</head>
+	<body onload="prettyPrint()">
+
+		<div class="jhades-menu navbar navbar-inverse navbar-fixed-top"> 
+			<div class="navbar-inner"> 
+				<div class="container"> 
+					<a class="brand" href="index.html">jHades</a> 
+					<ul class="nav"> 
+						<li class="active"> <a href="index.html">Home</a> </li> 
+						<li> <a href="downloads.html">Donwload</a> </li> 
+						<li> <a href="documentation.html">Documentation</a> </li> 
+					</ul>	
+				</div> 
+			</div> 
+		</div>
+
+		<div id='frontendVersion' style='display:none'>0.1</div>
+
+		<div class="container">
+
+			<div class="hero-unit jhades-header">
+
+				<div class='jhades-main-icon'>
+					
+				</div>
+				<div>
+					<h2>Your way out of Jar Hell!</h2>
+					<p>jHades is a tool for troubleshooting Java classpath problems. Get online diagnosis now!</p>
+				</div>
+				<div class="center main-buttons">
+					<div class='jhades-upload-container'>						
+						<input id='fileUploadField' type='file' name='warFile'>
+						<a id='uploadWarButton' class='btn btn-primary btn-large'>
+							Upload WAR
+						</a>	
+					</div>
+					<div class="spacer"></div>
+					<a id='viewOnGitHub' href="documentation.html" class="btn btn-large">
+						View on GitHub
+					</a>
+				</div>		
+
+				<!-- modal dialog with the file upload progress indicator -->
+				<div id="modalUploadDialog" class="modal hide fade jhades-dialog " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  <div class="modal-body">
+				    <h4 id="myModalLabel">WAR upload ongoing ...</h4>
+					<div id='progressBar' class='progress'>
+  						<div class="bar" style="width: 0%;"></div>
+					</div>	
+					<span class="pull-right badge">0%</span>
+				  </div>
+				  <div class="modal-footer">
+					  <button id='cancelUpload' type="reset" class="btn cancel">
+		                      <span>Cancel</span>
+	                  </button>
+				  </div>
+				</div>		
+
+			</div>	
+
+			<div class='quick-links' style='margin-bottom:10px;'>
+				<div class='social-media-button'>
+					<a href="https://twitter.com/JhadesDev" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size='small'>Follow @JhadesDev</a>
+				</div>
+				<div class="social-media-spacer"></div>
+				<div class='social-media-button tweetButton'>
+					<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='small'>Tweet</a>
+				</div>
+			</div>	
+
+			<div id='fileUploadErrors'></div>
+
+			<div class="row main-content">
+				<div class="span12">
+					<h3>Signs of Jar Hell:</h3>
+					<p>The following scenarios are an indication of classpath problems on a Java project:</p>
+					<ul>
+						<li><code>ClassNotFoundException</code> / <code>NoClassDefFoundError</code> or other unexpected errors</li>
+						<li>The project works in one environment but not on another</li>
+						<li>The projects works in one application server but not on another</li>
+						<li>When making changes to configuration files and redeploying, the changes are not picked up</li>
+						<li>The code stops working after adding a library to the project, or after upgrading a library version</li>
+					</ul>
+					<p>JHades can help you troubleshoot these and other problems, by helping to understand what is going on.</p>
+	                <div class="alert aler-warning">
+	                    For an introduction to Java class loaders and how to troubleshoot them, see this <a  onclick="window.open('http://parleys.com/play/514892270364bc17fc56bf96/chapter0/about', '_blank');" href='#'>presentation</a>.
+	                </div>
+				</div>			
+				<div class='span12'>
+					<h3>Avoid overlapping jars</h3>
+					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a href='#'>jar overlap report</a> for a web application:</p>
+					<pre class ='prettyprint linenums jhades-text-report'>
+
+>>>> Jar overlap report: 
+
+aspectjrt-1.7.2.jar overlaps with aspectjweaver-1.7.2.jar - total overlapping classes: 129
+ejb3-persistence-1.0.2.GA.jar overlaps with hibernate-jpa-2.0-api-1.0.1.Final.jar - total overlapping classes: 91
+stax-api-1.0-2.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 34
+javax.xml.soap-api-1.3.5.jar overlaps with saaj-api-1.3.jar - total overlapping classes: 29
+commons-beanutils-1.8.3.jar overlaps with commons-collections-3.2.1.jar - total overlapping classes: 10
+xbean-2.2.0.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 6
+commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlapping classes: 6
+
+Total number of classes with more than one version: 305
+					</pre>
+				</div>
+				<div class="span12">
+					<h3>Solving a classpath problem</h3>
+					<p>Let's say we have a WAR web application working in the IDE, but when deploying to a server the following error occurs:</p>
+					<pre class ='prettyprint linenums jhades-text-report'>
+						
+java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider cannot be cast to javax.validation.spi.ValidationProvider
+	javax.validation.Validation$DefaultValidationProviderResolver.getValidationProviders(Validation.java:332)
+	javax.validation.Validation$GenericBootstrapImpl.configure(Validation.java:256)
+	javax.validation.Validation.buildDefaultValidatorFactory(Validation.java:111)
+	classloaders.test.TestServlet.doGet(TestServlet.java:33)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:621)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:91)
+					</pre>
+					<p>This error occurs because an implementation class is cast to an incompatible interface. Let's see what is going on:</p>
+					<pre class="prettyprint linenums">
+    jhades.printClassLoaders()
+            .printClasspath()
+            .overlappingJarsReport()
+            .multipleClassVersionsReport()
+            .findClassByName("org.apache.bval.jsr303.ApacheValidationProvider")
+            .findClassByName("javax.validation.spi.ValidationProvider");               
+					</pre>
+
+					<h3>Identifying the problem</h3>
+	                 <p>This is part of the output, see <a href="#">the documentation for details</a>. The interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
+
+	                 <pre class ='prettyprint linenums jhades-text-report'>
+>> jHades printResourcePath >> searching for javax/validation/spi/ValidationProvider.class
+
+All versions:
+
+jar:file:/server/lib/validation-api-1.0.0.GA.jar!/javax/validation/spi/ValidationProvider.class
+jar:file:/server/webapps/classloaders/WEB-INF/lib/validation-api-1.0.0.GA.jar!/javax/validation/spi/ValidationProvider.class
+
+Current version being used: 
+
+jar:file:/server/webapps/classloaders/WEB-INF/lib/validation-api-1.0.0.GA.jar!/javax/validation/spi/ValidationProvider.class
+	                 </pre>
+
+					<p>The implementation class, unlike the interface is being loaded from the server/lib folder:</p>
+
+	                 <pre class ='prettyprint linenums jhades-text-report'>
+>> jHades printResourcePath >> searching for org/apache/bval/jsr303/ApacheValidationProvider.class
+
+All versions:
+
+jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidationProvider.class
+
+Current version being used: 
+
+jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidationProvider.class
+					</pre>
+
+					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a href='#'>not equivalent</a>. <p>
+					</p>When the program tries to cast the implementation class at the server/lib level to an interface at the WEB-INF/lib classloader level, the result is <code>ClassCastException</code>. </p>
+
+				</div>
+				<div class="span12">
+					<h3>Where to go from here</h3>
+					<p>Read the <a onclick="window.open('documentation.html', '_blank');" href="#">getting started</a> section, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
+					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
+
+					</p>
+
+					<div class='quick-links'>
+						<div class='social-media-button'>
+							<a href="https://twitter.com/JhadesDev" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size='large'>Follow @JhadesDev</a>
+						</div>
+						<div class="social-media-spacer"></div>
+						<div class='social-media-button tweetButton'>
+							<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='large'>Tweet</a>
+						</div>
+					</div>	
+
+				</div>
+
+				<script type="text/javascript">
+					twttr.ready(function() {
+   						twttr.widgets.load();
+					});
+				</script>				
+
+			</div>	
+
+		 <div id="disqus_thread" class='disqus-comments'></div>
+		    <script type="text/javascript">
+		        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+		        var disqus_shortname = 'jhades'; // required: replace example with your forum shortname
+
+		        /* * * DON'T EDIT BELOW THIS LINE * * */
+		        (function() {
+		            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		        })();
+
+		    </script>
+		    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+		    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+		</div>
+
+		<div class='footer'>
+			<div class="container"> 
+				<p class="pull-right"><a href="#" target="_self">Back to top</a></p> 
+				<p>Code licensed under the  <a href="#" target="_blank"> MIT License</a>. 
+				</p> 
+			</div> 
+		</div>
+
+
+		<!-- build:js jhades-site-index.min.js -->
+		<script type="text/javascript" src="js/libs/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/libs/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="js/libs/bootstrap.js"></script>
+		<script type="text/javascript" src="js/libs/prettify.js"></script>
+		<script type="text/javascript" src="js/libs/angular.js"></script>
+		<script type="text/javascript" src="js/libs/spin.js"></script>	
+		<script type="text/javascript" src="js/libs/jquery.ui.widget.js"></script>
+		<script type="text/javascript" src="js/libs/jquery.iframe-transport.js"></script>
+		<script type="text/javascript" src="js/libs/jquery.fileupload.js"></script>
+		<script type="text/javascript" src="js/libs/socket.io.js"></script>	
+		<script type="text/javascript" src="js/jhades-all.js"></script>		
+		<script type="text/javascript" src="js/jhades-index.js"></script>
+		<!-- endbuild -->
+
+		<!--[if lt IE 10]>
+			<script type="text/javascript">
+				$('#uploadWarButton').unbind('click').bind('click',function() {
+					alert('Only Internet Explorer 10 or above is supported.');
+				});
+				$('#fileUploadField').attr('disabled','disabled');
+			</script>
+		<![endif]-->	
+
+
+	</body>
+</html>

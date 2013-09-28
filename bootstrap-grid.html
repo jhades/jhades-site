@@ -1,0 +1,41 @@
+<div>
+	<div style='position:relative'>
+		<spinner style="position:absolute;top:70px;left:50%;" finished="dataset.rows.length"></spinner>
+
+		<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover table-bordered">
+		<thead>
+			<th class="{{column.styles}}" ng-repeat="column in columns">{{column.headerText}}</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat='rowData in dataset.rows'>
+				<td ng-repeat="column in columns" class="{{column.styles}}" title="{{rowData.className}}">  
+					<div ng-switch="column.type">
+						<div ng-switch-when="detail"> 
+							<a ng-click="viewDetail(rowData)" class="pointer" eat-click>View Details</a>
+						</div>
+						<div ng-switch-default>
+							{{rowData[column.property]}}
+						</div>
+					</div> 
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+
+	<!-- page footer - next/previous page buttons -->
+	<div class="row" ng-show="action">
+		<div class="span6">
+			<div class="dataTables_info">Showing page {{currentPage}} of {{dataset.totalPages}}</div>
+		</div>
+		<div class="span6">
+			<div class="dataTables_paginate paging_bootstrap pagination">
+				<ul>
+					<li class="prev disabled" ng-class="disableIfFirstPage()" ng-click="onPrevious()"><a href="#" eat-click>← Previous</a></li>
+					<li class="active"><a href="#">{{currentPage}}</a></li>
+					<li class="next" ng-class="disableIfLastPage()" ng-click="onNext()"><a href="#" eat-click>Next → </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

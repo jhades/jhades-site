@@ -1,0 +1,421 @@
+.jhades-logo {
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+}
+
+.jhades-header {
+	margin-top: 30px;
+}
+
+.jhades-side-menu {
+	float: left;
+	margin-left: 13em;
+	margin-top: 1em;	
+	position: fixed;
+}
+
+
+.main-content h3 {
+	margin-top: 0.5em;
+}	
+.jhades-text-report {
+	font-size: 75%;
+}		
+.note {
+	background: #fff7d6;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: #96938d;
+	font-family: "Helvetica Neue", "Helvetica", sans-serif;
+	font-weight: normal;
+	font-size: 15px;				
+}	
+
+.footer {
+	padding-top: 2em;
+	background-color: #1b1b1b;
+	color: white;
+	padding-bottom: 2em;
+	margin-top: 70px;
+}
+
+.spacer {
+	display: inline-block;
+	width: 4em;
+}
+
+.social-media-spacer {
+	display: inline-block;
+	width: 2em;
+}
+
+.center {
+	text-align: center;
+}
+
+.main-buttons {
+	margin-top: 1.5em;
+}
+
+.jhades-upload-container {
+	position:relative;
+}
+
+.jhades-upload-container input[type="file"] {
+	opacity: 0;
+	z-index: -1;
+	position: absolute;
+	left: 175px;
+	width: 138px;
+	height: 44px;
+}
+
+
+.jhades-upload-container a {
+	position: absolute;
+	left:175px;
+}
+
+.jhades-main-icon {
+	float:left;
+	margin-right:2em;
+	margin-top:-0.2em;
+	margin-left:-1em;	
+	background-image: url('../img/fire_3.png');
+	background-repeat: no-repeat;
+	width: 128px;
+	height: 128px;
+}
+
+.doc-index {
+	font-size: 15px;
+}
+
+
+.class-name-col {
+	width: 159px;
+	min-width: 159px;
+	max-width: 159px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: default;
+}
+
+.package-name-col {
+	width: 238px;
+	min-width: 238px;
+	max-width: 238px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;
+}
+
+
+.jar-overlap-package-col {
+	width: 159px;
+	min-width: 159px;
+	max-width: 159px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: default;
+}
+
+.jar-overlap-class-name-col {
+	width: 238px;
+	min-width: 238px;
+	max-width: 238px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;
+}
+
+
+.version-number-col {
+		width: 135px;
+	min-width: 135px;
+	max-width: 135px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;	
+}
+
+.view-versions-col {
+		width: 99px;
+	min-width: 99px;
+	max-width: 99px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;	
+}
+
+.location-col {
+		width: 300px;
+	min-width: 300px;
+	max-width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;
+}
+
+.size-col {
+		width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;	
+	cursor: default;
+}
+
+
+.pointer {
+	cursor: pointer;
+}
+
+.jhades-dialog {
+	top: 35% !important;
+}
+
+.detail-dialog {
+	min-height: 200px;
+}
+
+.google-plus-follow img {
+	vertical-align: top;
+}
+
+.dup-classes-section {
+	min-height:100px;
+}
+
+.disqus-comments {
+	margin-top: 3em;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none;
+}
+
+.spinner.container {
+    margin-top:2em;
+    margin-bottom:2em;
+}
+
+.quick-links {
+	margin-top: 35px;
+	margin-bottom: -25px;
+}
+
+.jhades-upload-container {
+	font-size:20px;
+}
+
+.quick-links ul {
+	list-style: none;
+}
+
+.quick-links {
+	text-align:center;
+}
+
+.social-media-button {
+	display: inline-block;
+}
+
+
+.google-follow {
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	vertical-align: top;
+}
+
+
+@media (max-width: 740px) and (-webkit-device-pixel-ratio: 1) {
+	.jhades-upload-container a {
+		left: 100px;
+	}
+}
+
+/*  style for minimal 'stacked' version  */
+@media (max-width: 560px) and (-webkit-device-pixel-ratio: 1) {
+
+	.container .brand {
+		display:none;
+	}
+
+	.jhades-menu.navbar .nav > li {
+		width: 50%;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 1em;
+		text-transform: uppercase;
+	}
+
+	.jhades-header {
+		margin-top: 0;
+	}
+
+	.jhades-main-icon {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.jhades-header h2 {
+		font-size: 34.5px;
+		text-align:center;
+	}
+
+	.jhades-upload-container a {
+		position: inherit;
+		left: 0px;
+	}
+	.spacer {
+		width: 0;
+	}
+
+	#viewOnGitHub {
+		margin-top: 20px;
+	}
+
+	.jhades-upload-container input[type="file"]	 {
+		margin-left: 50px;
+	}
+
+	.jhades-upload-container a {
+		width: 119px;
+	}
+
+	.hero-unit {
+		padding:30px;
+	}
+
+	.quick-links {
+		margin-bottom: 0px;		
+	}
+
+	.social-media-button {
+		display: block;
+	}
+
+
+}
+
+/* medium size devices, ipad portrait mode */
+@media (max-width:975px) and (-webkit-device-pixel-ratio: 2) {
+
+	.jhades-upload-container {
+		position: static;
+	}
+
+	.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+		width: auto;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+
+	.jhades-main-icon {
+		float:left;
+		margin-top: -5px;
+		background-image: url('../img/fire_3.png');
+		background-repeat: no-repeat;
+		width: 128px;
+		height: 128px;
+	}	
+
+}
+
+
+
+  /* CSS for Ultra-high-density (Retina) screens goes here *
+   * Ex: Samsung Galaxy SIII, HTC Evo LTE, iPhone 4 */
+@media (-webkit-device-pixel-ratio: 2) and (orientation:portrait)  and (max-width:400px) {
+	
+	.container .brand {
+		display:none;
+	}
+
+	.jhades-menu.navbar-fixed-top {
+	  position: static;
+	}
+
+	.navbar-fixed-top {
+		margin-bottom: 20px;
+	}
+
+	.jhades-header {
+		margin-top: 0;
+	}	
+
+	.jhades-main-icon {
+		float: none;
+		margin-left: auto;
+		margin-right: auto;
+	}	
+
+	.jhades-menu.navbar .nav > li {
+		width: 50%;
+		font-size: 17px;
+		font-weight: 700;
+		line-height: 1em;
+		text-transform: uppercase;
+	}
+
+	.hero-unit .jhades-header {
+		margin-top: 3em;
+	}
+
+	.jhades-upload-container a {
+		position: inherit;
+		left: 0px;
+	}
+	.spacer {
+		width: 0;
+	}
+
+	#viewOnGitHub {
+		margin-top: 20px;
+	}
+
+	.jhades-upload-container input[type="file"]	 {
+		margin-left: 50px;
+	}
+
+	.jhades-upload-container a {
+		width: 119px;
+	}
+
+	.jhades-header h2 {
+		font-size: 25px;
+		text-align: center;
+	}	
+
+	.hero-unit {
+		padding:10px 20px 20px 20px;
+		text-align: center;
+		font-size: 15px;
+		font-weight: 200;
+		line-height: 25px;
+	}
+
+	.navbar-fixed-top {
+		margin-bottom: 15px;
+	}
+
+	.quick-links {
+		margin-bottom: 0px;		
+	}		
+
+	.social-media-button {
+		display: block;
+	}
+
+}
+
+
+
+
+
+
+
+
