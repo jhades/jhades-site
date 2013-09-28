@@ -1,8 +1,8 @@
 RELEASE_VERSION=0.1-SNAPSHOT
 
-cd ..
+cd ../jhades
 mvn clean install
-cd jhades-site
+cd ../jhades-site
 
 grunt
 mkdir dist/jars
