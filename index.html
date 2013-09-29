@@ -117,24 +117,7 @@
 	                    For an introduction to Java class loaders and how to troubleshoot them, see this <a  onclick="window.open('http://parleys.com/play/514892270364bc17fc56bf96/chapter0/about', '_blank');" href='#'>presentation</a>.
 	                </div>
 				</div>			
-				<div class='span12'>
-					<h3>Avoid overlapping jars</h3>
-					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  onclick="window.open('documentation.html#warreport', '_blank');"  href='#'>jar overlap report</a> for a web application:</p>
-					<pre class ='prettyprint linenums jhades-text-report'>
 
->>>> Jar overlap report: 
-
-aspectjrt-1.7.2.jar overlaps with aspectjweaver-1.7.2.jar - total overlapping classes: 129
-ejb3-persistence-1.0.2.GA.jar overlaps with hibernate-jpa-2.0-api-1.0.1.Final.jar - total overlapping classes: 91
-stax-api-1.0-2.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 34
-javax.xml.soap-api-1.3.5.jar overlaps with saaj-api-1.3.jar - total overlapping classes: 29
-commons-beanutils-1.8.3.jar overlaps with commons-collections-3.2.1.jar - total overlapping classes: 10
-xbean-2.2.0.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 6
-commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlapping classes: 6
-
-Total number of classes with more than one version: 305
-					</pre>
-				</div>
 				<div class="span12">
 					<h3>Solving a classpath problem</h3>
 					<p>Let's say we have a WAR web application working in the IDE, but when deploying to a server the following error occurs:</p>
@@ -151,12 +134,15 @@ java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider ca
 					</pre>
 					<p>This error occurs because an implementation class is cast to an incompatible interface. Let's see what is going on:</p>
 					<pre class="prettyprint linenums">
-    jhades.printClassLoaders()
-            .printClasspath()
-            .overlappingJarsReport()
-            .multipleClassVersionsReport()
-            .findClassByName("org.apache.bval.jsr303.ApacheValidationProvider")
-            .findClassByName("javax.validation.spi.ValidationProvider");               
+
+  new JHades()
+	.printClassLoaders()
+	.printClasspath()
+	.overlappingJarsReport()
+	.multipleClassVersionsReport()
+	.findClassByName("org.apache.bval.jsr303.ApacheValidationProvider")
+	.findClassByName("javax.validation.spi.ValidationProvider"); 
+
 					</pre>
 
 					<h3>Identifying the problem</h3>
@@ -193,6 +179,26 @@ jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidatio
 					</p>When the program tries to cast the implementation class at the server/lib level to an interface at the WEB-INF/lib classloader level, the result is <code>ClassCastException</code>. </p>
 
 				</div>
+
+				<div class='span12'>
+					<h3>Avoid overlapping jars</h3>
+					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  onclick="window.open('documentation.html#warreport', '_blank');"  href='#'>jar overlap report</a> for a web application:</p>
+					<pre class ='prettyprint linenums jhades-text-report'>
+
+>>>> Jar overlap report: 
+
+aspectjrt-1.7.2.jar overlaps with aspectjweaver-1.7.2.jar - total overlapping classes: 129
+ejb3-persistence-1.0.2.GA.jar overlaps with hibernate-jpa-2.0-api-1.0.1.Final.jar - total overlapping classes: 91
+stax-api-1.0-2.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 34
+javax.xml.soap-api-1.3.5.jar overlaps with saaj-api-1.3.jar - total overlapping classes: 29
+commons-beanutils-1.8.3.jar overlaps with commons-collections-3.2.1.jar - total overlapping classes: 10
+xbean-2.2.0.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 6
+commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlapping classes: 6
+
+Total number of classes with more than one version: 305
+					</pre>
+				</div>
+
 				<div class="span12">
 					<h3>Where to go from here</h3>
 					<p>Read the <a onclick="window.open('documentation.html', '_blank');" href="#">documentation</a>, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
