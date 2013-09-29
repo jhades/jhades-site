@@ -108,7 +108,7 @@
                 <h4>Find overlapping jars</h4>
                 <p>The standalone WAR report allows to check in a WAR for class duplicates. This report gives less information than running jhades at server startup,
                     but it can many times already be sufficient to identify a large number of classpath problems. Tools like <a href='#' onclick="window.open('http://zipdiff.sourceforge.net', '_blank');">zipdiff</a> can then be used to compare jars.
-                <p>This is an example of how to run the report (download the jar <a href='#'>here</a>):</p>
+                <p>This is an example of how to run the report (download the jar <a  onclick="window.open('downloads.html', '_blank');" href='#'>here</a>):</p>
 
                 <pre class="prettyprint linenums">
 
@@ -182,7 +182,7 @@ Search results using regular expression: .*AttributeHTML\.class$
 
                 <a name="installation"></a>
                 <h4>Installation</h4>
-                <p>In order to install jHades for runtime analisys, <a href="#">donwload</a> the jHades jar and add it to the classpath of your project, or use this maven dependency:</p>
+                <p>In order to install jHades for runtime analisys, <a onclick="window.open('downloads.html', '_blank');" href="#">donwload</a> the jHades jar and add it to the classpath of your project, or use this maven dependency:</p>
                 <pre class="prettyprint linenums">
 
 &lt;dependency&gt;<br/>    &lt;groupId&gt;org.jhades&lt;/groupId&gt;<br/>    &lt;artifactId&gt;jhades&lt;/artifactId&gt;<br/>    &lt;version&gt;0.1&lt;/version&gt;<br/>&lt;/dependency&gt;
@@ -412,9 +412,7 @@ new JHades().overlappingJarsReport();
             <a  name="freqcauses"></a>
             <section>
 
-                <div class="page-header">
-                    <h3>Causes for classpath problems</h3>
-                </div>                
+                <h4>Causes for classpath problems</h4>               
 
                 <p>Having multiple versions of the same class file on the classpath is very common. Tools like maven minimize the problem, but don't fully prevent it. Maven cannot do anything against jars that where published with a different groupId/artifactId over time. This happens quite a lot for different reasons. There is no way for maven to tell it's the same library.</p>                
                 <p>Also some libraries contain code that is simply copied accross from another jar, and the package name is kept. This is less frequent but it still happens a lot.</p>
@@ -425,9 +423,7 @@ new JHades().overlappingJarsReport();
             <a name="bestpractices"></a>
             <section>
 
-                <div class="page-header">
-                    <h3>Best practices</h3>
-                </div>                 
+                <h4>Best practices</h4>
 
                 <p>One way to avoid classpath problems is to make the production environment as much as possible identical to development. </p>
                 <p>The application server can be set to use a 'parent last' class loading policy, where the webapp classloader searches first on WEB-INF/lib for a class, and only if the class is not found there will it query the server. This is the usual mode of working of development servers such as tomcat/jetty, even tough they usually support also the 'parent first' policy. </p>

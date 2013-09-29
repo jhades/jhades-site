@@ -119,7 +119,7 @@
 				</div>			
 				<div class='span12'>
 					<h3>Avoid overlapping jars</h3>
-					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a href='#'>jar overlap report</a> for a web application:</p>
+					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  onclick="window.open('documentation.html#warreport', '_blank');"  href='#'>jar overlap report</a> for a web application:</p>
 					<pre class ='prettyprint linenums jhades-text-report'>
 
 >>>> Jar overlap report: 
@@ -160,7 +160,7 @@ java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider ca
 					</pre>
 
 					<h3>Identifying the problem</h3>
-	                 <p>This is part of the output, see <a href="#">the documentation for details</a>. The interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
+	                 <p>The interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
 
 	                 <pre class ='prettyprint linenums jhades-text-report'>
 >> jHades printResourcePath >> searching for javax/validation/spi/ValidationProvider.class
@@ -189,13 +189,13 @@ Current version being used:
 jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidationProvider.class
 					</pre>
 
-					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a href='#'>not equivalent</a>. <p>
+					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a  onclick="window.open('http://stackoverflow.com/questions/2591779/cast-across-classloader');" href='#'>not equivalent</a>. <p>
 					</p>When the program tries to cast the implementation class at the server/lib level to an interface at the WEB-INF/lib classloader level, the result is <code>ClassCastException</code>. </p>
 
 				</div>
 				<div class="span12">
 					<h3>Where to go from here</h3>
-					<p>Read the <a onclick="window.open('documentation.html', '_blank');" href="#">getting started</a> section, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
+					<p>Read the <a onclick="window.open('documentation.html', '_blank');" href="#">documentation</a>, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
 					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
 
 					</p>
