@@ -46,15 +46,14 @@
 				<div class='page-header'>
 					<h2>JHades WAR report </h2>
 				</div>
-				<p>This report aims to find some common classpath problems on your WAR file. Once the report is finished, you can keep the link if you want to reuse the report. The report will be kept during 1 day.</p>
-				<p>You can get a lot more information by donwloading the JHades jar file, and using JHades to query the classpath of your runtime - This will scan all your runtime classloaders for problems, and not only the contents of your WEB-INF/lib folder.</p> 
-				<p>See the jHades <a href="documentation.html"> documentation </a> for more details.</p>
+				<p>This report aims to find some common classpath problems on a WAR file. It's possible to get a lot more information by donwloading the JHades jar file, and using JHades to query the classpath at runtime. </p> 
+				<p>This will scan all the runtime classloaders for problems, and not only the contents of the jar. See the jHades <a href="documentation.html"> documentation </a> for more details.</p>
 			</section>
 
 			<section id='resultsSummary'>
 
 				<h3>Results summary</h3>
-				<p>This is the summary of the potencial problems found for your web archive: 
+				<p>This is the summary of the potencial problems found for this web archive: 
 				<b class='nocode' ng-bind="warName">...</code></b>
 				<p>
 
@@ -79,7 +78,7 @@
 			<section ng-controller='JarOverlapController' ng-show='overlapJars.rows.length' ng-cloak>
 
 				<h3>Overlaping jars found</h3>
-				<p>There are jars on your WAR that contain the same classes. This should never occur, and is an indication that you might have different version of the same jar on the classpath. Some other usual explanations: the code was copied accross projects and modified, or published under different group / artifact Ids on the same or different Maven repositories.</p>
+				<p>There are jars on your WAR that contain the same classes. This should never occur, and is an indication that there might bedifferent versions of the same jar on the classpath. Some other usual explanations: the code was copied accross projects and modified, or published under different group / artifact Ids on the same or different Maven repositories.</p>
 				<br>
 
 				<bootstrap-grid dataset='overlapJars' action='getOverlapJarsPage'>
