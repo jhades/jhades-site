@@ -66,7 +66,7 @@
 						</a>	
 					</div>
 					<div class="spacer"></div>
-					<a id='viewOnGitHub' onclick="window.open('https://github.com/jhades/JHades', '_blank');"  class="btn btn-large">
+					<a id='viewOnGitHub' href="https://github.com/jhades/JHades" target="_blank"  class="btn btn-large">
 						View on GitHub
 					</a>
 				</div>		
@@ -114,7 +114,7 @@
 					</ul>
 					<p>JHades can help you troubleshoot these and other problems, by helping to understand what is going on.</p>
 	                <div class="alert aler-warning">
-	                    For an introduction to Java class loaders and how to troubleshoot them, see this <a  onclick="window.open('http://parleys.com/play/514892270364bc17fc56bf96/chapter0/about', '_blank');" href='#'>presentation</a>.
+	                    For an introduction to Java class loaders and how to troubleshoot them, see this <a  href="http://parleys.com/play/514892270364bc17fc56bf96/chapter0/about" target='_blank'>presentation</a>.
 	                </div>
 				</div>			
 
@@ -175,14 +175,14 @@ Current version being used:
 jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidationProvider.class
 					</pre>
 
-					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a  onclick="window.open('http://stackoverflow.com/questions/2591779/cast-across-classloader');" href='#'>not equivalent</a>. <p>
+					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a  href="http://stackoverflow.com/questions/2591779/cast-across-classloader" target='_blank'>not equivalent</a>. <p>
 					</p>When the program tries to cast the implementation class at the server/lib level to an interface at the WEB-INF/lib classloader level, the result is <code>ClassCastException</code>. </p>
 
 				</div>
 
 				<div class='span12'>
 					<h3>Avoid overlapping jars</h3>
-					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  onclick="window.open('documentation.html#warreport', '_blank');"  href='#'>jar overlap report</a> for a web application:</p>
+					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  href="documentation.html#warreport"  target='_blank'>jar overlap report</a> for a web application:</p>
 					<pre class ='prettyprint linenums jhades-text-report'>
 
 >>>> Jar overlap report: 
@@ -201,7 +201,7 @@ Total number of classes with more than one version: 305
 
 				<div class="span12">
 					<h3>Where to go from here</h3>
-					<p>Read the <a onclick="window.open('documentation.html', '_blank');" href="#">documentation</a>, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
+					<p>Read the <a href="documentation.html" target="_blank">documentation</a>, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
 					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
 
 					</p>
