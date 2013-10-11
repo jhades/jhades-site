@@ -132,7 +132,15 @@ java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider ca
 	javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
 	org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:91)
 					</pre>
-					<p>This error occurs because an implementation class is cast to an incompatible interface. Let's see what is going on:</p>
+					<p>This error occurs because an implementation class is cast to an incompatible interface. Several questions can be made in this situation:
+					<ul>
+						<li>are there any overlapping jars, with different versions of the same class?</li>
+						<li>Are those multiple versions of the same class all identical or not ?</li>
+						<li>where are the different versions of a given class located ?</li>
+						<li>which class loader is loading which version of a given class ?</li>
+						<li>What does the chain of classloaders look like, how are the classloaders configured ?</li>
+					</ul>
+					<p>The following command answers all of these questions:</p>
 					<pre class="prettyprint linenums">
 
   new JHades()
@@ -199,8 +207,8 @@ jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidatio
 
 				<div class="span12">
 					<h3>In summary</h3>
-					<p>In case of classpath problems, JHades allows to gather from the runtime environment the type of information that is essential to understand what is going on. The information that is reported is not readilly available in stacktraces, logs, etc.</p>
-					<p><a href="documentation.html" target="_blank">Documentation</a>is available, it's also possible to <a href="#">upload</a> a WAR and view an online report - also a standalone jar for inspecting WAR files is available. </p>
+					<p>In case of classpath problems, JHades allows to gather from the runtime environment information that is essential to understand what is going on. The information that JHades reports is not readilly available in stacktraces, logs, etc.</p>
+					<p><a href="documentation.html" target="_blank">Documentation</a> is available, it's also possible to <a href="#">upload</a> a WAR and view an online report - also a standalone jar for inspecting WAR files is available. </p>
 					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
 
 					</p>
