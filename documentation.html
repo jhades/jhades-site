@@ -423,15 +423,13 @@ new JHades().overlappingJarsReport();
             <a name="bestpractices"></a>
             <section>
 
-                <h4>Best practices</h4>
+                <h4>Best practices to avoid classpath problems</h4>
 
                 <p>One way to avoid classpath problems is to make the production environment as much as possible identical to development. </p>
                 <p>The application server can be set to use a 'parent last' class loading policy, where the webapp classloader searches first on WEB-INF/lib for a class, and only if the class is not found there will it query the server. This is the usual mode of working of development servers such as tomcat/jetty, even tough they usually support also the 'parent first' policy. </p>
                 <p>'Parent first'  is the default mode in many enterprise class servers such as Websphere. In that operation mode the server library implementations are given priority over the WEB-INF lib versions. The problem is that the server library versions are many times too ancient and using them can cause maintenance problems, for example while trying to upgrade application libraries that have transient dependencies to libraries provided by the server.</p>
-                <p>The WAR deployed to production should be as much as possible the same is used in development, no special maven profiles should be used to add/remove jars - this way if it works in development and there are no duplicates at the WAR level, the likellyhood that it also works in production is high.</p>
-                <p>Classpath duplicates can be preventivelly detected with the <a href="http://mojo.codehaus.org/extra-enforcer-rules" target="_blank" >maven enforcer plugin with extra rules</a>.</p>
-                <p>The duplicate libraries should be removed as much as possible using maven exclusions. If not possible then other ways can be necessary.</p>
-                <p>The maven <a href="http://maven.apache.org/plugins/maven-shade-plugin" target="_blank" >shade plugin</a> can be used to create a uberjar (jar with dependencies), where all duplicates are stripped out with filter rules. This might be cumbersome and not worth it, as this is not the main goal of the plugin (only works at jar level). In last case, modified jars can be published to the repository with a different name, this should only be necessary in rare cases.</p>
+                <p>The WAR deployed to production should be as much as possible the same is used in development, adding/removing jars with special maven profiles should be as much as possible avoided.</p>
+                <p>Classpath duplicates can be preventivelly detected with the <a href="http://mojo.codehaus.org/extra-enforcer-rules" target="_blank" >maven enforcer plugin with extra rules</a>. The duplicate libraries should be removed as much as possible preferably using maven exclusions.</p>
 
             </section>
 

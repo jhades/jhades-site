@@ -95,7 +95,7 @@
 				</div>
 				<div class="social-media-spacer"></div>
 				<div class='social-media-button tweetButton'>
-					<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='small'>Tweet</a>
+					<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='small' data-count="none">Tweet</a>
 				</div>
 			</div>	
 
@@ -119,8 +119,8 @@
 				</div>			
 
 				<div class="span12">
-					<h3>Solving a classpath problem</h3>
-					<p>Let's say we have a WAR web application working in the IDE, but when deploying to a server the following error occurs:</p>
+					<h3>Troubleshooting a classpath problem</h3>
+					<p>Let's say we have a WAR web application working in development, but when deploying to a server the following error occurs:</p>
 					<pre class ='prettyprint linenums jhades-text-report'>
 						
 java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider cannot be cast to javax.validation.spi.ValidationProvider
@@ -145,8 +145,25 @@ java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider ca
 
 					</pre>
 
-					<h3>Identifying the problem</h3>
-	                 <p>The interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
+					<h3>Identifying the problem</h3>		
+					
+					<p>A report is printed with classpath troubleshooting information. The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  href="documentation.html#warreport"  target='_blank'>jar overlap report</a> for a web application:</p>
+					<pre class ='prettyprint linenums jhades-text-report'>
+
+>>>> Jar overlap report: 
+
+aspectjrt-1.7.2.jar overlaps with aspectjweaver-1.7.2.jar - total overlapping classes: 129
+ejb3-persistence-1.0.2.GA.jar overlaps with hibernate-jpa-2.0-api-1.0.1.Final.jar - total overlapping classes: 91
+stax-api-1.0-2.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 34
+javax.xml.soap-api-1.3.5.jar overlaps with saaj-api-1.3.jar - total overlapping classes: 29
+commons-beanutils-1.8.3.jar overlaps with commons-collections-3.2.1.jar - total overlapping classes: 10
+xbean-2.2.0.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 6
+commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlapping classes: 6
+
+Total number of classes with more than one version: 305
+					</pre>
+
+	                 <p>This part of the report shows that an interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
 
 	                 <pre class ='prettyprint linenums jhades-text-report'>
 >> jHades printResourcePath >> searching for javax/validation/spi/ValidationProvider.class
@@ -180,28 +197,10 @@ jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidatio
 
 				</div>
 
-				<div class='span12'>
-					<h3>Avoid overlapping jars</h3>
-					<p>The most common source of classpath problems are overlapping jar files, that somehow contain different versions of the same class. This is an example of a real production example of a <a  href="documentation.html#warreport"  target='_blank'>jar overlap report</a> for a web application:</p>
-					<pre class ='prettyprint linenums jhades-text-report'>
-
->>>> Jar overlap report: 
-
-aspectjrt-1.7.2.jar overlaps with aspectjweaver-1.7.2.jar - total overlapping classes: 129
-ejb3-persistence-1.0.2.GA.jar overlaps with hibernate-jpa-2.0-api-1.0.1.Final.jar - total overlapping classes: 91
-stax-api-1.0-2.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 34
-javax.xml.soap-api-1.3.5.jar overlaps with saaj-api-1.3.jar - total overlapping classes: 29
-commons-beanutils-1.8.3.jar overlaps with commons-collections-3.2.1.jar - total overlapping classes: 10
-xbean-2.2.0.jar overlaps with xml-apis-1.4.01.jar - total overlapping classes: 6
-commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlapping classes: 6
-
-Total number of classes with more than one version: 305
-					</pre>
-				</div>
-
 				<div class="span12">
-					<h3>Where to go from here</h3>
-					<p>Read the <a href="documentation.html" target="_blank">documentation</a>, or <a href="#">upload</a> your WAR and view the online report - a standalone jar for inspecting WAR files is available. </p>
+					<h3>In summary</h3>
+					<p>In case of classpath problems, JHades allows to gather from the runtime environment the type of information that is essential to understand what is going on. The information that is reported is not readilly available in stacktraces, logs, etc.</p>
+					<p><a href="documentation.html" target="_blank">Documentation</a>is available, it's also possible to <a href="#">upload</a> a WAR and view an online report - also a standalone jar for inspecting WAR files is available. </p>
 					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
 
 					</p>
@@ -212,7 +211,7 @@ Total number of classes with more than one version: 305
 						</div>
 						<div class="social-media-spacer"></div>
 						<div class='social-media-button tweetButton'>
-							<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='large'>Tweet</a>
+							<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='large' data-count="none">Tweet</a>
 						</div>
 					</div>	
 
