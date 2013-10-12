@@ -1,7 +1,7 @@
 RELEASE_VERSION=0.1-SNAPSHOT
 
 cd ../jhades
-mvn clean install
+mvn clean install -Pall
 cd ../jhades-site
 
 grunt
