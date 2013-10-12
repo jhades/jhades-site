@@ -46,8 +46,8 @@
 				<div class='page-header'>
 					<h2>JHades WAR report </h2>
 				</div>
-				<p>This report aims to find some common classpath problems on a WAR file. It's possible to get a lot more information by donwloading the JHades jar file, and using JHades to query the classpath at runtime. </p> 
-				<p>This will scan all the runtime classloaders for problems, and not only the contents of the jar. See the jHades <a href="documentation.html"> documentation </a> for more details.</p>
+				<p>This report aims to find some common classpath problems on a WAR file. It's possible to get a lot more information by donwloading the JHades jar file, and using JHades to query the runtime environment. </p> 
+				<p>A standalone inspection tool exists to inpects WARS for classpath problems. See the jHades <a href="documentation.html"> documentation </a> for more details.</p>
 			</section>
 
 			<section id='resultsSummary'>
@@ -89,7 +89,8 @@
 			
 			</section>
 
-			<section class='dup-classes-section' ng-controller="DuplicateClassesController" ng-cloak>
+			<!-- This section is deactivated for the moment  -->
+			<section class='dup-classes-section' ng-controller="DuplicateClassesController" ng-cloak ng-show='false'>
 
 				<div ng-show='dupClasses.rows.length'>
 
