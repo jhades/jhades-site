@@ -14,9 +14,12 @@ $(function () {
             jqXHR = data.submit();
         },        
         done: function (e, data) {
+            console.log('Upload finished, starting report...');
+            $('#progressBar .bar').css('width', '100%');
+            $('#modalUploadDialog .badge').text('100%');
             setTimeout(function() {
                 window.location = 'report.html?reportId=' + reportId;
-            },1500);
+            },100);            
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);

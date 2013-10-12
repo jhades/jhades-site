@@ -23,10 +23,10 @@
 		</table>
 	</div>
 
-	<!-- page footer - next/previous page buttons -->
+	<!-- grid footer - next/previous page buttons -->
 	<div class="row" ng-show="action">
 		<div class="span6">
-			<div class="dataTables_info">Showing page {{currentPage}} of {{dataset.totalPages}}</div>
+			<div class="dataTables_info">Showing page {{currentPage}} of {{dataset.totalPages || "..."}}</div>
 		</div>
 		<div class="span6">
 			<div class="dataTables_paginate paging_bootstrap pagination">
