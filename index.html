@@ -87,17 +87,7 @@
 				  </div>
 				</div>		
 
-			</div>	
-
-			<!-- div class='quick-links' style='margin-bottom:10px;'>
-				<div class='social-media-button'>
-					<a href="https://twitter.com/JhadesDev" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size='small'>Follow @JhadesDev</a>
-				</div>
-				<div class="social-media-spacer"></div>
-				<div class='social-media-button tweetButton'>
-					<a href="https://twitter.com/share?text=JHades%20-%20Your%20way%20out%20of%20Jar%20Hell%20!%20http%3A%2F%2Fjhades.org%20via%20%40JhadesDev" class="twitter-share-button" data-lang="en" data-size='small' data-count="none">Tweet</a>
-				</div>
-			</div -->	
+			</div>		
 
 			<div id='fileUploadErrors'></div>
 
@@ -135,12 +125,12 @@ java.lang.ClassCastException: org.apache.bval.jsr303.ApacheValidationProvider ca
 					<p>This error occurs because an implementation class is cast to an incompatible interface. Several questions can be made in this situation:
 					<ul>
 						<li>are there any overlapping jars, with different versions of the same class?</li>
-						<li>Are those multiple versions of the same class all identical or not ?</li>
+						<li>Are the multiple versions of the same class all identical or not ?</li>
 						<li>where are the different versions of a given class located ?</li>
 						<li>which class loader is loading which version of a given class ?</li>
-						<li>What does the chain of classloaders look like, how are the classloaders configured ?</li>
+						<li>What does the chain of classloaders look like, how are the class loaders configured ?</li>
 					</ul>
-					<p>The following command answers all of these questions:</p>
+					<p>The following command answers these questions:</p>
 					<pre class="prettyprint linenums">
 
   new JHades()
@@ -171,7 +161,7 @@ commons-logging-1.1.1.jar overlaps with jcl-over-slf4j-1.6.6.jar - total overlap
 Total number of classes with more than one version: 305
 					</pre>
 
-	                 <p>This part of the report shows that an interface is being loaded from the WEB-INF/lib classloader, and there are two versions - one at the WAR level and the other at the server level:</p>
+	                 <p>This part of the report shows that an interface is being loaded from the WEB-INF/lib class loader, but there are two versions - one at the WAR level and the other at a server class loader level:</p>
 
 	                 <pre class ='prettyprint linenums jhades-text-report'>
 >> jHades printResourcePath >> searching for javax/validation/spi/ValidationProvider.class
@@ -200,14 +190,14 @@ Current version being used:
 jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidationProvider.class
 					</pre>
 
-					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib classloader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a  href="http://stackoverflow.com/questions/2591779/cast-across-classloader" target='_blank'>not equivalent</a>. <p>
+					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider from the server/lib class loader - it cannot see the version at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders, so they are <a  href="http://stackoverflow.com/questions/2591779/cast-across-classloader" target='_blank'>not equivalent</a>. <p>
 					</p>When the program tries to cast the implementation class at the server/lib level to an interface at the WEB-INF/lib classloader level, the result is <code>ClassCastException</code>. </p>
 
 				</div>
 
 				<div class="span12">
 					<h3>In summary</h3>
-					<p>In case of classpath problems, JHades allows to gather from the runtime environment information that is essential to understand what is going on. The information that JHades reports is not readilly available in stacktraces, logs, etc.</p>
+					<p>In case of classpath problems, JHades allows to gather from the runtime environment information that is important to understand what is going on. The information that JHades reports is not readilly available in stack traces, logs, etc.</p>
 					<p><a href="documentation.html" target="_blank">Documentation</a> is available, it's also possible to <a href="#">upload</a> a WAR and view an online report - also a standalone jar for inspecting WAR files is available. </p>
 					<p>Comment here for questions/suggestions/thoughts on how to tackle these problems:</p>
 

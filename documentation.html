@@ -106,7 +106,7 @@
                 </div>
 
                 <h4>Find overlapping jars</h4>
-                <p>The standalone WAR report allows to check in a WAR for class duplicates. This report gives less information than running jhades at server startup,
+                <p>The standalone WAR report allows to check a WAR for class duplicates. This report gives less information than running jhades at server startup,
                     but it can many times already be sufficient to identify a large number of classpath problems. Tools like <a  href="http://zipdiff.sourceforge.net" target="_blank">zipdiff</a> can then be used to compare jars.
                 <p>This is an example of how to run the report (download the jar <a  href="downloads.html" target='_blank'>here</a>):</p>
 
@@ -215,17 +215,17 @@ Search results using regular expression: .*AttributeHTML\.class$
 
 >> jHades - scanning classpath for overlapping jars:
 
-/server/webapps/WEB-INF/lib/jaxp-ri-1.4.5.jar overlaps with /jdk7.25/jre/lib/rt.jar - total overlapping classes: 1956 - different classloaders.
+/server/webapps/WEB-INF/lib/jaxp-ri-1.4.5.jar overlaps with /jdk7.25/jre/lib/rt.jar - total overlapping classes: 1956 - different class loaders.
 
-/server/webapps/WEB-INF/lib/commons-beanutils-core-1.8.3.jar overlaps with /server/webapps/WEB-INF/lib/commons-collections-3.2.1.jar - total overlapping classes: 10 - same classloader ! This is an ERROR!
+/server/webapps/WEB-INF/lib/commons-beanutils-core-1.8.3.jar overlaps with /server/webapps/WEB-INF/lib/commons-collections-3.2.1.jar - total overlapping classes: 10 - same class loader ! This is an ERROR!
 ...
                 </pre>
 
-                <p>The next section shows the chain of classloaders:</p>
+                <p>The next section shows the chain of class loaders:</p>
 
                 <pre class="prettyprint linenums jhades-text-report">
 
->> jHades printClassLoaders >> Printing all classloader (ordered from child to parent):
+>> jHades printClassLoaders >> Printing all class loader (ordered from child to parent):
 
  com.springsource.insight.collection.tcserver.ltw.TomcatWeavingInsightClassLoader
 org.apache.catalina.loader.StandardClassLoader
@@ -240,10 +240,10 @@ TODO - print toString details as well
 
                 <pre class="prettyprint linenums jhades-text-report">
 
->>> Dumping available info for classloader org.apache.catalina.loader.WebappClassLoader
+>>> Dumping available info for class loader org.apache.catalina.loader.WebappClassLoader
 
 WebappClassLoader
-  context: /classloaders
+  context: /class loaders
   delegate: false
   repository: /WEB-INF/classes/
 ----------> Parent Classloader:
@@ -251,7 +251,7 @@ java.net.URLClassLoader@3ea1e9b0
 ...
                 </pre>
 
-                <p>The next section shows the list of jars per classloader:</p>
+                <p>The next section shows the list of jars per class loader:</p>
 
                 <pre class="prettyprint linenums jhades-text-report">
 
@@ -316,7 +316,7 @@ public class MyJHadesDebugListener extends JHadesServletListener {
 
                 <a name="searchbyclass"></a>
                 <h4 id="searchClasses">Search classpath by class</h4>
-                <p>This command allows to search the classpath for all versions of a given class, on all classloaders. It prints also the version of the class that is being used:</p>
+                <p>This command allows to search the classpath for all versions of a given class, on all class loaders. It prints also the version of the class that is being used:</p>
 
                 <pre class="prettyprint linenums">
 
@@ -362,7 +362,7 @@ new JHades().printClasspath();
 
                 <a name="viewclassloaders"></a>
                 <h4>View class loaders chain</h4>
-                <p>Use this command to print all classloaders on the classpath, as in the default runtime report. :</p>
+                <p>Use this command to print all class loaders on the classpath, as in the default runtime report. :</p>
                 <pre class="prettyprint linenums">
 
 new JHades().printClassloaderNames();
@@ -370,7 +370,7 @@ new JHades().printClassloaderNames();
 
                 <a name="dumpclassloaders"></a>
                 <h4>Dump class loaders info</h4>
-                <p>Use this command to print the toString() of all classloaders, which usually contains useful information (parent first/last, etc.)</p>
+                <p>Use this command to print the toString() of all class loaders, which usually contains useful information (parent first/last, etc.)</p>
                 <pre class="prettyprint linenums">
 
 new JHades().dumpClassloaderInfo();
@@ -426,7 +426,7 @@ new JHades().overlappingJarsReport();
                 <h4>Best practices to avoid classpath problems</h4>
 
                 <p>One way to avoid classpath problems is to make the production environment as much as possible identical to development. </p>
-                <p>The application server can be set to use a 'parent last' class loading policy, where the webapp classloader searches first on WEB-INF/lib for a class, and only if the class is not found there will it query the server. This is the usual mode of working of development servers such as tomcat/jetty, even tough they usually support also the 'parent first' policy. </p>
+                <p>The application server can be set to use a 'parent last' class loading policy, where the webapp class loader searches first on WEB-INF/lib for a class, and only if the class is not found there will it query the server. This is the usual mode of working of development servers such as tomcat/jetty, even tough they usually support also the 'parent first' policy. </p>
                 <p>'Parent first'  is the default mode in many enterprise class servers such as Websphere. In that operation mode the server library implementations are given priority over the WEB-INF lib versions. The problem is that the server library versions are many times too ancient and using them can cause maintenance problems, for example while trying to upgrade application libraries that have transient dependencies to libraries provided by the server.</p>
                 <p>The WAR deployed to production should be as much as possible the same is used in development, adding/removing jars with special maven profiles should be as much as possible avoided.</p>
                 <p>Classpath duplicates can be preventivelly detected with the <a href="http://mojo.codehaus.org/extra-enforcer-rules" target="_blank" >maven enforcer plugin with extra rules</a>. The duplicate libraries should be removed as much as possible preferably using maven exclusions.</p>
