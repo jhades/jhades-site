@@ -95,7 +95,8 @@ module.exports = function(grunt) {
 					{expand: true, src: ['./server.js'], dest: 'dist/', filter: 'isFile'},
 					{expand: true, src: ['./*.sh'], dest: 'dist/', filter: 'isFile'},
 					{expand: true, src: ['img/*'], dest: 'dist/'},
-					{expand: true, src: ['js/google_analytics.js'], dest: 'dist/'}
+					{expand: true, src: ['js/google_analytics.js'], dest: 'dist/'},
+					{expand: true, src: ['sitemap.xml'], dest: 'dist/'}
 				]
 			}
 		},
