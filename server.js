@@ -77,6 +77,10 @@
           entry : String,
           size : Number});
 
+    var JHadesStatistics = mongoose.model('JHadesStatistics',
+        { donwloadType: String,
+          timestamp: String});
+
     // intialize file upload
     app.use(express.bodyParser({
         uploadDir : process.env.JHADES_UPLOADS_DIR,
@@ -165,6 +169,14 @@
 
         socket.on('duplicateClassDetail',function(message) {
             onGetDuplicateClassDetail(message);
+        });
+
+        socket.on('jHadesCoreDonwloaded',function(message) {
+            onJHadesCoreDonwloaded();
+        });
+
+        socket.on('jHadesStandaloneDonwloaded',function(message) {
+            onJHadesStandaloneDonwloaded();
         });
 
      });
@@ -384,6 +396,22 @@
         socket.emit('endReport',message);
     }
 
+    function onJHadesCoreDonwloaded() {
+        console.log('JHades core downloaded...');
+        var coreDonwload = new JHadesStatistics({
+            "donwloadType": 'core',
+            "timestamp": getToday() });
+        coreDonwload.save();
+    }
+
+    function onJHadesStandaloneDonwloaded() {
+        console.log('JHades standalone downloaded...');
+        var standaloneDonwload = new JHadesStatistics({
+            "donwloadType": 'standalone',
+            "timestamp": getToday()});
+        standaloneDonwload.save();
+    }
+ 
     function onDbSave(err) {
         if (err) {
             console.log('Error while saving to the database: ' + err);
@@ -406,5 +434,10 @@
     // start server
     webSocketServer.listen(process.env.JHADES_PORT);
     console.log('jHades server running on port ' + process.env.JHADES_PORT + ' ...');
+
+    function getToday() {
+        var today = new Date();
+        return today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
+    }
 
 }());

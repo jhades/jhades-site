@@ -52,12 +52,12 @@
 
                 <p>Click these links for a direct download:</p>
 
-                <ul>
+                <ul ng-controller='JHadesDonwloadController'>
                     <li>
-                        <a href="jars/jhades-1.0.4.jar">JHades - jhades-1.0.4.jar</a>
+                        <a href="jars/jhades-1.0.4.jar" ng-click='onDonwloadJHadesCore()'>JHades - jhades-1.0.4.jar</a>
                     </li>
                     <li>
-                        <a href="jars/jhades-standalone-report-1.0.4.jar">Standalone report - jhades-standalone-report-1.0.4.jar</a>
+                        <a href="jars/jhades-standalone-report-1.0.4.jar" ng-click='onDonwloadJHadesStandalone()'>Standalone report - jhades-standalone-report-1.0.4.jar</a>
                     </li>
                 </ul>
 

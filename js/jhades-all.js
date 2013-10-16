@@ -159,8 +159,19 @@ jHadesApp.directive('spinner', function() {
 });
 
 
+function JHadesDonwloadController($scope,webSocket)  {
 
+    console.log('Initializing donwload controller ...');
 
+    $scope.onDonwloadJHadesCore = function() {
+        console.log('core donwloaded ...');
+        webSocket.emit('jHadesCoreDonwloaded', {});
+    };
 
+    $scope.onDonwloadJHadesStandalone = function() {
+        console.log('standalone donwloaded ...');
+        webSocket.emit('jHadesStandaloneDonwloaded', {});
+    };
 
+}
 
