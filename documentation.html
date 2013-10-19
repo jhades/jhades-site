@@ -4,7 +4,7 @@
         <!--script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script-->    
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <meta name="description" content="JHades is a Java classpath troubleshooting tool. It helps to solve common Java classpath / Jar Hell related problems such as ClassNotFoundException, NoClassDefFoundError, ClasspathException, No SuchMethodException, LinkageError, etc." />            
+        <meta name="description" content="JHades is a Java classpath troubleshooting tool. It helps to solve common Java classpath / Jar Hell related problems such as ClassNotFoundException, NoClassDefFoundError, ClassCastException, NoSuchMethodException, LinkageError, etc." />            
         <title>jHades Documentation</title>
         <!-- build:css jhades-site.min.css -->
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
@@ -93,9 +93,6 @@
                     <li>
                       <a href="#freqcauses">Frequent causes for classpath problems</a>  
                     </li>                  
-                    <li>
-                      <a href="#bestpractices">Best practices</a>  
-                    </li>                  
                 </ul>
 
             </section>
@@ -134,7 +131,7 @@ Total number of classes with more than one version: 6169
                 </pre>
 
                 <p>Sometimes classes have multiple class files inside the WAR, but they are all of the same size, most likelly meaning they are identical. </p>
-                <p>These duplicates are not dangerous as the class loaded at runtime will always be the same.  Option -Dexclude.same.size.dups=true allows to exclude them:</p>
+                <p>These duplicates are not dangerous as the class loaded at runtime will always be the same.  Option -Dexclude.same.size.dups=true allows to exclude them from the report:</p>
 
                 <pre class="prettyprint linenums">
 
@@ -164,7 +161,7 @@ java -jar jhades-standalone-report.jar -Ddetail=true path/to/war/webapp.war
 java -jar jhades-standalone-report.jar -Dsearch.by.file.name=".*AttributeHTML\.class$" path/to/war/webapp.war 
                 </pre>
 
-                <p>This is an example of the output:</p>
+                <p>The output looks like the following:</p>
                 <pre class="prettyprint linenums jhades-text-report">
 Search results using regular expression: .*AttributeHTML\.class$
 
@@ -186,7 +183,7 @@ Search results using regular expression: .*AttributeHTML\.class$
                 <p>In order to install jHades for runtime analisys, <a href="downloads.html" target="_blank">donwload</a> the jHades jar and add it to the classpath of your project, or use this maven dependency:</p>
                 <pre class="prettyprint linenums">
 
-&lt;dependency&gt;<br/>    &lt;groupId&gt;org.jhades&lt;/groupId&gt;<br/>    &lt;artifactId&gt;jhades&lt;/artifactId&gt;<br/>    &lt;version&gt;0.1&lt;/version&gt;<br/>&lt;/dependency&gt;
+&lt;dependency&gt;<br/>    &lt;groupId&gt;org.jhades&lt;/groupId&gt;<br/>    &lt;artifactId&gt;jhades&lt;/artifactId&gt;<br/>    &lt;version&gt;1.0.4&lt;/version&gt;<br/>&lt;/dependency&gt;
                 </pre>
 
                 <a name="troubleshooting"></a>
@@ -397,43 +394,27 @@ new JHades().overlappingJarsReport();
             </section>
 
             <a name="howdoesitwork"></a>
+  
             <section>
 
                 <div class="page-header">
                     <h3>How does it work</h3>
                 </div>
 
-                <p>jHades is a tool that aims at help troubleshooting classpath problems. It allows to get classpath information that is not readilly available, specially on environments where the developer as limited control (to turn on verbose:class at the class level, search server directories, etc.). </p>
+                <p>jHades is a tool for troubleshooting Java classpath problems. It allows to get classpath information that is not readilly available, including in environments where the developer as limited control (to turn on verbose:class at the class level, search server directories, etc.). </p>
                 <p>JHades allows to query the classpath for jars, class folders, class files or other resources. A standalone version exists for analysis at the WAR level.</p>
-                <p>JHades is mostly meant to be used in development environments. It only depends on the Java 7 runtime, no other libraries are required. Java 7 includes a library (NIO) that allow to easilly inspect the classpath directories and jar files. </p>
-                <p>By using only classes of the JDK, we are sure that jHades will not create it's own classpath problems by bringing along other libraries, which would defeat the purpose of the tool in the first place. </p>
+                <p>JHades depends only depends on the Java 7 runtime, no other libraries are required. It uses the Java 7 NIO library that allows to easilly inspect the classpath directories and jar files. </p>
+                <p>By using only classes of the JDK, we are sure that jHades will not create it's own classpath problems by bringing along other libraries. </p>
+
+                <a  name="freqcauses"></a>
+
+                <br>
+                <h4>Common causes for classpath problems</h4>               
+
+                <p>Having multiple versions of the same class file on the classpath is very common. Tools like maven minimize the problem, but can't fully prevent it. Maven cannot detect that a jar was published several times under different names. This happens quite a lot for different reasons, and there is no way for maven to tell it's the same library.</p>                
+                <p>Also some libraries contain code that is simply copied accross from another jar, and the package name is kept. This is less frequent but still it happens a lot. The end result is that it's not infrequent that Java code bases have classpath duplicates, which can cause problems that are hard to track down. </p>
 
             </section>
-
-            <a  name="freqcauses"></a>
-            <section>
-
-                <h4>Causes for classpath problems</h4>               
-
-                <p>Having multiple versions of the same class file on the classpath is very common. Tools like maven minimize the problem, but don't fully prevent it. Maven cannot do anything against jars that where published with a different groupId/artifactId over time. This happens quite a lot for different reasons. There is no way for maven to tell it's the same library.</p>                
-                <p>Also some libraries contain code that is simply copied accross from another jar, and the package name is kept. This is less frequent but it still happens a lot.</p>
-                <p>The end result is that a large number of Java code bases have classpath duplicates, which can cause problems that are hard to track down. </p>
-
-            </section>
-
-            <a name="bestpractices"></a>
-            <section>
-
-                <h4>Best practices to avoid classpath problems</h4>
-
-                <p>One way to avoid classpath problems is to make the production environment as much as possible identical to development. </p>
-                <p>The application server can be set to use a 'parent last' class loading policy, where the webapp class loader searches first on WEB-INF/lib for a class, and only if the class is not found there will it query the server. This is the usual mode of working of development servers such as tomcat/jetty, even tough they usually support also the 'parent first' policy. </p>
-                <p>'Parent first'  is the default mode in many enterprise class servers such as Websphere. In that operation mode the server library implementations are given priority over the WEB-INF lib versions. The problem is that the server library versions are many times too ancient and using them can cause maintenance problems, for example while trying to upgrade application libraries that have transient dependencies to libraries provided by the server.</p>
-                <p>The WAR deployed to production should be as much as possible the same is used in development, adding/removing jars with special maven profiles should be as much as possible avoided.</p>
-                <p>Classpath duplicates can be preventivelly detected with the <a href="http://mojo.codehaus.org/extra-enforcer-rules" target="_blank" >maven enforcer plugin with extra rules</a>. The duplicate libraries should be removed as much as possible preferably using maven exclusions.</p>
-
-            </section>
-
             
         </div>
     </div>
