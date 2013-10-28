@@ -192,7 +192,7 @@ jar:file:/server/lib/bval-jsr303-0.5.jar!/org/apache/bval/jsr303/ApacheValidatio
 					</pre>
 
 					<p>The implementation class ApacheValidationProvider implements the interface ValidationProvider that is visible at the level of the server/lib class loader. That implementation class cannot see the version of ValidationProvider at the level of the WAR WEB-INF/lib.  The two interfaces exist on different class loaders so they are <a  href="http://stackoverflow.com/questions/2591779/cast-across-classloader" target='_blank'>not equivalent</a>. <p>
-					</p>When the program tries to cast the implementation class ApacheValidationProvider at the server/lib level to the interface ValidationProvider at the WEB-INF/lib classloader level using <code>Class.cast()</code>, the result is <code>ClassCastException</code>. </p>
+					</p>When the program tries to cast the implementation class ApacheValidationProvider at the server/lib level to the interface ValidationProvider at the WEB-INF/lib classloader, the result is <code>ClassCastException</code>. </p>
 
 				</div>
 
