@@ -1,3 +1,4 @@
+
 cd ../jhades
 mvn clean install -Pall
 cd ../jhades-site
