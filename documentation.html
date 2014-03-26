@@ -53,7 +53,7 @@
 
                 <ul class='doc-index'>
                     <li>
-                      <a href="#warreport">Standalone WAR report</a>  
+                      <a href="#warreport">WAR duplicates classes report</a>  
                     </li>                    
                     <li>
                         <a href="#installation">Installation</a>
@@ -101,11 +101,11 @@
             <a name="warreport"></a>
             <section>
                 <div class='page-header'>
-                    <h3>Standalone WAR report</h3>
+                    <h3>WAR Duplicate Classes Report</h3>
                 </div>
 
                 <h4>Find overlapping jars</h4>
-                <p>The standalone WAR report allows to check a WAR for class duplicates. This report gives less information than running jhades at server startup,
+                <p>The duplicate classes WAR report allows to check a WAR for class duplicates. This report gives less information than running jHades at server startup,
                     but it can many times already be sufficient to identify a large number of classpath problems. Tools like <a  href="http://zipdiff.sourceforge.net" target="_blank">zipdiff</a> can then be used to compare jars.
                 <p>This is an example of how to run the report (download the jar <a  href="downloads.html" target='_blank'>here</a>):</p>
 
@@ -131,7 +131,7 @@ jasperreports-3.7.1.jar overlaps with jasperreports-applet-3.7.1.jar - total ove
 Total number of classes with more than one version: 6169
                 </pre>
 
-                <p>Sometimes classes have multiple class files inside the WAR, but they are all of the same size, most likelly meaning they are identical. </p>
+                <p>Sometimes classes have multiple class files inside the WAR, but they are all of the same size, most likely meaning they are identical. </p>
                 <p>These duplicates are not dangerous as the class loaded at runtime will always be the same.  Option -Dexclude.same.size.dups=true allows to exclude them from the report:</p>
 
                 <pre class="prettyprint linenums">
@@ -139,7 +139,7 @@ Total number of classes with more than one version: 6169
 java -jar  -Dexclude.same.size.dups=true jhades-standalone-report.jar path/to/war/webapp.war 
                 </pre>
 
-                <p>Option -Ddetail=true shows which classes have duplicates and in wich locations:</p>
+                <p>Option -Ddetail=true shows which classes have duplicates and in which locations:</p>
 
                 <pre class="prettyprint linenums">
 
@@ -181,7 +181,7 @@ Search results using regular expression: .*AttributeHTML\.class$
 
                 <a name="installation"></a>
                 <h4>Installation</h4>
-                <p>In order to install jHades for runtime analisys, <a href="downloads.html" target="_blank">download</a> the jHades jar and add it to the classpath of your project, or use this maven dependency:</p>
+                <p>In order to install jHades for runtime analysis, <a href="downloads.html" target="_blank">download</a> the jHades jar and add it to the classpath of your project, or use this maven dependency:</p>
                 <pre class="prettyprint linenums">
 
 &lt;dependency&gt;<br/>    &lt;groupId&gt;org.jhades&lt;/groupId&gt;<br/>    &lt;artifactId&gt;jhades&lt;/artifactId&gt;<br/>    &lt;version&gt;1.0.4&lt;/version&gt;<br/>&lt;/dependency&gt;
@@ -205,7 +205,7 @@ Search results using regular expression: .*AttributeHTML\.class$
                         </div>
                     </div>
                 </div>
-                <p>The next time the server is started, a default jhades report will be produced (jhades requires Java 7). The report contains a lot of information that is usually needed to troubleshoot classpath problems. </p>
+                <p>The next time the server is started, a default jHades report will be produced (jHades requires Java 7). The report contains a lot of information that is usually needed to troubleshoot classpath problems. </p>
 
                 <a name="defaultreport"></a>
                 <h4>The default runtime report</h4>
@@ -386,7 +386,7 @@ new JHades().multipleClassVersionsReport();
 
                 <a name="dupjars"></a>
                 <h4>Find overlapping jars</h4>
-                <p>Use this command to identifiy overlapping jars:</p>
+                <p>Use this command to identify overlapping jars:</p>
                 <pre class ='prettyprint linenums'>
 
 new JHades().overlappingJarsReport();
@@ -402,9 +402,9 @@ new JHades().overlappingJarsReport();
                     <h3>How does it work</h3>
                 </div>
 
-                <p>jHades is a tool for troubleshooting Java classpath problems. It allows to get classpath information that is not readilly available, including in environments where the developer as limited control (to turn on verbose:class at the class level, search server directories, etc.). </p>
+                <p>jHades is a tool for troubleshooting Java classpath problems. It allows to get classpath information that is not readily available, including in environments where the developer as limited control (to turn on verbose:class at the class level, search server directories, etc.). </p>
                 <p>JHades allows to query the classpath for jars, class folders, class files or other resources. A standalone version exists for analysis at the WAR level.</p>
-                <p>JHades depends only depends on the Java 7 runtime, no other libraries are required. It uses the Java 7 NIO library that allows to easilly inspect the classpath directories and jar files. </p>
+                <p>JHades depends only depends on the Java 7 runtime, no other libraries are required. It uses the Java 7 NIO library that allows to easily inspect the classpath directories and jar files. </p>
                 <p>By using only classes of the JDK, we are sure that jHades will not create it's own classpath problems by bringing along other libraries. </p>
 
                 <a  name="freqcauses"></a>
@@ -413,7 +413,7 @@ new JHades().overlappingJarsReport();
                 <h4>Common causes for classpath problems</h4>               
 
                 <p>Having multiple versions of the same class file on the classpath is very common. Tools like maven minimize the problem, but can't fully prevent it. Maven cannot detect that a jar was published several times under different names. This happens quite a lot for different reasons, and there is no way for maven to tell it's the same library.</p>                
-                <p>Also some libraries contain code that is simply copied accross from another jar, and the package name is kept. This is less frequent but still it happens a lot. The end result is that it's not infrequent that Java code bases have classpath duplicates, which can cause problems that are hard to track down. </p>
+                <p>Also some libraries contain code that is simply copied across from another jar, and the package name is kept. This is less frequent but still it happens a lot. The end result is that it's not infrequent that Java code bases have classpath duplicates, which can cause problems that are hard to track down. </p>
 
             </section>
             
