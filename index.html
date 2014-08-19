@@ -126,7 +126,21 @@
 
 				</div>			
 
+
 				<div class="span12">
+					<h3>JHades In a Nutshell</h3>
+	                <p>jHades is a tool that helps troubleshooting classpath problems, see the blog post <a href="#">Demystifying Jar Hell</a> for the main classpath concepts and pitfalls. </p>
+
+	                <ul>
+	                    <li>Duplicate classes detection: a command line tool list <a href="documentation.html#warreport">duplicate classes in a WAR</a>, and allows filtering 'harmless' duplicates</li>
+	                    <li>Runtime classpath debugging: a <a href="documentation.html#customreport">utility class</a> exists to query the classpath at runtime for details on the class loader chain, jars, hidden class files, etc. </li>
+	                    <li>Server startup troubleshooting: jHades works works well in scenarios where the <a href="documentation.html#troubleshooting">server does not even start</a></li>
+	                </ul>
+
+				</div>
+
+
+				<div class="span12"  style='margin-top:1em'>
 					<h3>Troubleshooting a classpath problem</h3>
 					<p>Let's say we have a WAR web application working in development, but when deploying to a server the following error occurs:</p>
 					<pre class ='prettyprint linenums jhades-text-report'>
