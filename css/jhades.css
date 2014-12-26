@@ -40,10 +40,6 @@
 	margin-top: 70px;
 }
 
-.spacer {
-	display: inline-block;
-	width: 3em;
-}
 
 .social-media-spacer {
 	display: inline-block;
@@ -58,23 +54,14 @@
 	margin-top: 1.5em;
 }
 
-.jhades-upload-container {
-	position:relative;
-}
+@media (max-width: 767px) {
+	.main-buttons {
+		text-align: center;
+	}	
 
-.jhades-upload-container input[type="file"] {
-	opacity: 0;
-	z-index: -1;
-	position: absolute;
-	left: 175px;
-	width: 138px;
-	height: 44px;
-}
-
-
-.jhades-upload-container a {
-	position: absolute;
-	left:175px;
+	.main-button {
+		margin-bottom: 0.7em;
+	}
 }
 
 .jhades-main-icon {
